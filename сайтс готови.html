@@ -1,0 +1,2973 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Граффити как искусство | Исследование уличного искусства в Кирове</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== CSS СТИЛИ ========== */
+        /* всё красивое тут */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #0f0f0f;
+            --secondary: #ffafb3;
+            --accent: #f0f0f0;
+            --light: #aaa;
+            --danger: #ff5252;
+            --safe: #4caf50;
+            --warning: #ff9800;
+            --dark-bg: #222;
+            --darker-bg: #1a1a1a;
+            --card-bg: #2a2a2a;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--accent);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* кнопки вытянутые и круглые */
+        .btn {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+            padding: 12px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* анимация переливания при наведении */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--secondary), #ffd1d3, var(--secondary));
+            background-size: 200% 200%;
+            z-index: -1;
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .btn:hover::before {
+            transform: translateX(0);
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .btn:hover {
+            color: var(--primary);
+            box-shadow: 0 10px 20px rgba(255, 175, 179, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .fx-push:hover {
+            transform: translateY(4px) !important; /* кнопка нажимается вниз */
+        }
+
+        .fx-neon:hover {
+            box-shadow: 0 0 30px #ffafb3, 0 0 60px #ffafb3 !important; /* розовое свечение */
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: #ffc2c6;
+            color: var(--primary);
+        }
+
+        /* шапка сверху */
+        header {
+            background-color: rgba(17, 17, 17, 0.98);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border-bottom: 2px solid var(--secondary);
+            backdrop-filter: blur(10px);
+        }
+
+        header.hidden {
+            transform: translateY(-100%); /* прячем шапку когда скроллим вниз */
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05); /* логотип увеличивается */
+        }
+
+        .logo i {
+            color: var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover i {
+            transform: rotate(15deg); /* баллончик крутится */
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+        }
+
+        .nav-links li {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .nav-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            font-size: 0.95rem;
+            display: block;
+            padding: 12px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 1;
+            white-space: nowrap;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        /* анимация кнопок меню */
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--secondary), #ffd1d3, var(--secondary));
+            background-size: 200% 200%;
+            z-index: -1;
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+            opacity: 0;
+            border-radius: 30px;
+        }
+
+        .nav-links a:hover::before {
+            transform: translateX(0);
+            opacity: 1;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 
+                0 10px 20px rgba(255, 175, 179, 0.3),
+                0 0 30px rgba(255, 175, 179, 0.2),
+                inset 0 0 15px rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--secondary);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-links a span {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover span {
+            transform: scale(1.1); /* текст в меню растёт */
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            color: var(--secondary);
+            background-color: rgba(255, 175, 179, 0.1);
+            transform: rotate(90deg); /* кнопка поворачивается */
+        }
+
+        /* главный экран */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(rgba(15, 15, 15, 0.9), rgba(15, 15, 15, 0.9)), url('https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+            animation: gradientMove 20s ease infinite; /* фон двигается */
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 175, 179, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 175, 179, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, var(--secondary), #ffd1d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 2s ease-in-out infinite alternate; /* текст светится всегда */
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 20px rgba(255, 175, 179, 0.5);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(255, 175, 179, 0.8), 0 0 40px rgba(255, 175, 179, 0.6);
+            }
+        }
+
+        .hero p {
+            font-size: 1rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: var(--light);
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        /* все секции */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--secondary), transparent);
+            animation: linePulse 2s ease-in-out infinite; /* линия под заголовком пульсирует */
+        }
+
+        @keyframes linePulse {
+            0%, 100% { width: 100px; }
+            50% { width: 150px; }
+        }
+
+        .section-title p {
+            color: var(--light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* блок про граффити */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: var(--dark-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.6s ease forwards; /* таблица выезжает */
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .comparison-table tr {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--darker-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(45deg, var(--secondary), #ffd1d3);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            transform: translateX(8px) scale(1.01); /* строка сдвигается при наведении */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 175, 179, 0.1);
+        }
+
+        .comparison-table tr:hover td {
+            background: linear-gradient(145deg, var(--card-bg), var(--dark-bg));
+        }
+
+        .about-images {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-image-item {
+            position: relative;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .about-image-item:nth-child(1) { animation-delay: 0.2s; }
+        .about-image-item:nth-child(2) { animation-delay: 0.4s; }
+        .about-image-item:nth-child(3) { animation-delay: 0.6s; }
+
+        .about-image-item:hover {
+            transform: translateY(-10px) scale(1.02); /* картинка приподнимается */
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.6),
+                0 0 60px rgba(255, 175, 179, 0.2);
+            z-index: 2;
+        }
+
+        .about-image-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .about-image-item:hover img {
+            transform: scale(1.1) rotate(1deg); /* картинка внутри увеличивается и чуть поворачивается */
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 16px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .about-image-item:hover .image-caption {
+            background-color: rgba(255, 175, 179, 0.9);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        /* особенности стрит-арта */
+        .features {
+            background-color: var(--darker-bg);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background-color: var(--dark-bg);
+            padding: 30px;
+            border-radius: 10px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid transparent;
+            background: linear-gradient(145deg, var(--dark-bg), var(--card-bg));
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUp 0.6s ease forwards;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 175, 179, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%; /* белый свет бежит по карточке */
+        }
+
+        .feature-card:hover {
+            border-left: 4px solid var(--secondary);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(255, 175, 179, 0.3);
+            z-index: 2;
+        }
+
+        .feature-card:hover i {
+            transform: scale(1.05); /* иконка чуть растёт */
+            color: #ffd1d3;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover h3 {
+            transform: scale(1.05);
+            color: var(--secondary);
+        }
+
+        .feature-card:hover p {
+            transform: translateY(-2px) scale(1.05);
+            color: #ddd;
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card p {
+            color: var(--light);
+            margin-bottom: 0;
+            transition: all 0.3s ease;
+        }
+
+        /* статистика */
+        .stats {
+            background-color: var(--dark-bg);
+            padding: 100px 0;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 30px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 15px;
+            background: linear-gradient(145deg, var(--card-bg), var(--dark-bg));
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.6s ease forwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0.1s; }
+        .stat-item:nth-child(2) { animation-delay: 0.2s; }
+        .stat-item:nth-child(3) { animation-delay: 0.3s; }
+        .stat-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .stat-item:hover {
+            transform: scale(1.05); /* блок растёт */
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(255, 175, 179, 0.2);
+            background: linear-gradient(145deg, var(--dark-bg), var(--card-bg));
+            z-index: 10;
+        }
+
+        .stat-item:hover .stat-number,
+        .stat-item:hover .stat-text {
+            transform: scale(1.05); /* текст тоже растёт */
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .stat-item:hover i {
+            transform: scale(1.3) rotate(360deg); /* иконка крутится на 360 */
+            color: #ffd1d3;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover .stat-number {
+            color: var(--secondary);
+            text-shadow: 0 0 20px rgba(255, 175, 179, 0.5);
+        }
+
+        .stat-text {
+            color: var(--light);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover .stat-text {
+            color: #ddd;
+        }
+
+        /* история */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--secondary), #ffd1d3);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: lineFlow 3s ease-in-out infinite; /* линия мерцает */
+        }
+
+        @keyframes lineFlow {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 50px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 10px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            transform: translateX(50px);
+        }
+
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideLeft {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .timeline-item.animate:nth-child(odd) {
+            animation: slideRight 0.4s ease-out forwards; /* элемент выезжает справа */
+        }
+        .timeline-item.animate:nth-child(even) {
+            animation: slideLeft 0.4s ease-out forwards; /* элемент выезжает слева */
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(255, 175, 179, 0.15),
+                0 0 80px rgba(255, 175, 179, 0.25);
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background: linear-gradient(145deg, var(--dark-bg), var(--card-bg));
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-content {
+            background: linear-gradient(145deg, var(--card-bg), var(--dark-bg));
+        }
+
+        .timeline-content h3 {
+            color: #ffd1d3;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-content h3 {
+            color: var(--secondary);
+            transform: scale(1.05);
+            text-shadow: 0 0 10px rgba(255, 175, 179, 0.5);
+        }
+
+        .artist-name {
+            color: var(--secondary);
+            font-weight: bold;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .artist-name {
+            transform: translateX(10px) scale(1.05); /* имена художников сдвигаются */
+            text-shadow: 0 0 10px rgba(255, 175, 179, 0.5);
+        }
+
+        .timeline-content p {
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-content p {
+            transform: scale(1.05);
+            color: #ffd1d3;
+            text-shadow: 0 0 10px rgba(255, 175, 179, 0.5);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: var(--secondary);
+            border-radius: 50%;
+            top: 30px;
+            box-shadow: 0 0 20px var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: -10px;
+            background: var(--secondary);
+            border-radius: 50%;
+            top: 30px;
+            box-shadow: 0 0 20px var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover::before {
+            transform: scale(1.5); /* кружочек растёт */
+            box-shadow: 0 0 30px var(--secondary);
+        }
+
+        /* галерея городов */
+        .gallery {
+            background-color: var(--darker-bg);
+        }
+
+        .gallery-subtitle {
+            text-align: center;
+            color: var(--light);
+            font-size: 1.2rem;
+            margin: -40px auto 30px;
+            font-style: italic;
+            max-width: 800px;
+            line-height: 1.5;
+            animation: fadeIn 1s ease 0.5s both;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 250px;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUp 0.6s ease forwards;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.7s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.8s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.9s; }
+        .gallery-item:nth-child(10) { animation-delay: 1.0s; }
+        .gallery-item:nth-child(11) { animation-delay: 1.1s; }
+        .gallery-item:nth-child(12) { animation-delay: 1.2s; }
+        .gallery-item:nth-child(13) { animation-delay: 1.3s; }
+        .gallery-item:nth-child(14) { animation-delay: 1.4s; }
+        .gallery-item:nth-child(15) { animation-delay: 1.5s; }
+        .gallery-item:nth-child(16) { animation-delay: 1.6s; }
+        .gallery-item:nth-child(17) { animation-delay: 1.7s; }
+        .gallery-item:nth-child(18) { animation-delay: 1.8s; }
+        .gallery-item:nth-child(19) { animation-delay: 1.9s; }
+        .gallery-item:nth-child(20) { animation-delay: 2.0s; }
+
+        .gallery-item:hover {
+            transform: translateY(-15px) scale(1.05); /* картинка подлетает */
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(255, 175, 179, 0.2);
+            z-index: 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.15) rotate(2deg); /* картинка внутри увеличивается и поворачивается */
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 16px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            background-color: rgba(255, 175, 179, 0.9);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 175, 179, 0.7);
+            transform: scale(0);
+            animation: ripple-animation 0.6s ease-out; /* волна при клике */
+            pointer-events: none;
+            filter: blur(15px);
+            z-index: 10;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(6);
+                opacity: 0;
+            }
+        }
+
+        /* кировская секция */
+        .kirov-section {
+            background-color: var(--primary);
+            border-top: 3px solid var(--secondary);
+            border-bottom: 3px solid var(--secondary);
+        }
+
+        .kirov-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .yandex-map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease;
+        }
+
+        .yandex-map-container:hover {
+            transform: scale(1.02); /* карта чуть увеличивается */
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.6),
+                0 0 50px rgba(255, 175, 179, 0.1);
+        }
+
+        .yandex-map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .route-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .route-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: linear-gradient(145deg, var(--dark-bg), var(--card-bg));
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .route-list li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 175, 179, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .route-list li:hover::before {
+            left: 100%; /* свет бежит по строке */
+        }
+
+        .route-list li:hover {
+            transform: translateX(10px) scale(1.02); /* строка сдвигается */
+            background: linear-gradient(145deg, var(--card-bg), var(--dark-bg));
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(255, 175, 179, 0.1);
+            border-left: 4px solid #ffd1d3;
+        }
+
+        .route-list li strong {
+            color: var(--secondary);
+            transition: color 0.3s ease;
+        }
+
+        .route-list li:hover strong {
+            color: #ffd1d3;
+        }
+
+        .route-list li::after {
+            content: 'тык →'; /* подсказка нажать */
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            color: var(--light);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .route-list li:hover::after {
+            opacity: 1;
+            color: var(--secondary);
+        }
+
+        .route-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .route-card {
+            background: linear-gradient(145deg, var(--dark-bg), var(--card-bg));
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUp 0.6s ease forwards;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .route-card:nth-child(1) { animation-delay: 0.1s; }
+        .route-card:nth-child(2) { animation-delay: 0.2s; }
+        .route-card:nth-child(3) { animation-delay: 0.3s; }
+        .route-card:nth-child(4) { animation-delay: 0.4s; }
+        .route-card:nth-child(5) { animation-delay: 0.5s; }
+        .route-card:nth-child(6) { animation-delay: 0.6s; }
+        .route-card:nth-child(7) { animation-delay: 0.7s; }
+
+        .route-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 175, 179, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .route-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .route-card:hover {
+            transform: translateY(-15px) scale(1.03); /* карточка взлетает */
+            border-top: 3px solid var(--secondary);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(255, 175, 179, 0.15),
+                0 0 80px rgba(255, 175, 179, 0.25);
+            z-index: 2;
+        }
+
+        .route-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            transition: all 0.5s ease;
+        }
+
+        .route-card:hover .route-image {
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .route-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .route-card:hover .route-image img {
+            transform: scale(1.15) rotate(1deg); /* картинка в карточке растёт */
+        }
+
+        .route-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+            transition: color 0.3s ease;
+        }
+
+        .route-card:hover h3 {
+            color: var(--secondary);
+        }
+
+        .route-card p {
+            color: var(--light);
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .route-card:hover p {
+            color: #ddd;
+        }
+
+        .route-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .click-hint {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .route-card:hover .click-hint {
+            opacity: 1;
+            transform: translateX(5px); /* подсказка сдвигается */
+        }
+
+        .city-graffiti-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 15, 15, 0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .city-modal-content {
+            background: linear-gradient(145deg, var(--dark-bg), var(--card-bg));
+            margin: 5% auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 20px;
+            border: 2px solid var(--secondary);
+            position: relative;
+            animation: slideUp 0.4s ease;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 100px rgba(255, 175, 179, 0.1);
+        }
+
+        .city-close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 175, 179, 0.1);
+        }
+
+        .city-close-modal:hover {
+            color: var(--secondary);
+            background: rgba(255, 175, 179, 0.2);
+            transform: rotate(90deg) scale(1.1); /* крестик крутится */
+        }
+
+        .city-modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .city-modal-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-right: 20px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, rgba(255, 175, 179, 0.1), rgba(255, 175, 179, 0.2));
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .city-modal-header:hover .city-modal-icon {
+            transform: rotate(15deg) scale(1.1);
+            background: linear-gradient(145deg, rgba(255, 175, 179, 0.2), rgba(255, 175, 179, 0.3));
+        }
+
+        .city-modal-header h2 {
+            flex: 1;
+            color: var(--accent);
+            font-size: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .city-modal-header:hover h2 {
+            color: var(--secondary);
+        }
+
+        .city-modal-body {
+            color: var(--light);
+            line-height: 1.7;
+        }
+
+        .city-modal-body h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .city-modal-body h3:hover {
+            color: #ffd1d3;
+        }
+
+        .city-modal-body h3 i {
+            margin-right: 10px;
+            color: var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .city-modal-body h3:hover i {
+            transform: scale(1.2);
+        }
+
+        .city-modal-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s ease;
+        }
+
+        .city-modal-image:hover {
+            transform: scale(1.02);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(255, 175, 179, 0.1);
+        }
+
+        .city-modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .city-modal-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .city-graffiti-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .city-graffiti-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            transition: all 0.5s ease;
+        }
+
+        .city-graffiti-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 175, 179, 0.2);
+        }
+
+        .city-graffiti-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .city-graffiti-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .city-graffiti-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .city-graffiti-item:hover .city-graffiti-caption {
+            background: rgba(255, 175, 179, 0.9);
+            color: var(--primary);
+        }
+
+        /* подвал */
+        footer {
+            background: linear-gradient(to bottom, var(--darker-bg), var(--primary));
+            padding: 30px 0 20px;
+            border-top: 1px solid rgba(255, 175, 179, 0.1);
+            text-align: center;
+        }
+
+        .copyright {
+            color: var(--light);
+            font-size: 0.8rem;
+        }
+
+        .copyright p {
+            margin-bottom: 0;
+        }
+
+        .graffiti-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 15, 15, 0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, var(--dark-bg), var(--card-bg));
+            margin: 5% auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 20px;
+            border: 2px solid var(--secondary);
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 175, 179, 0.1);
+        }
+
+        .close-modal:hover {
+            color: var(--secondary);
+            background: rgba(255, 175, 179, 0.2);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-right: 20px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, rgba(255, 175, 179, 0.1), rgba(255, 175, 179, 0.2));
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-header:hover .modal-icon {
+            transform: rotate(15deg) scale(1.1);
+            background: linear-gradient(145deg, rgba(255, 175, 179, 0.2), rgba(255, 175, 179, 0.3));
+        }
+
+        .modal-header h2 {
+            flex: 1;
+            color: var(--accent);
+            font-size: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .modal-header:hover h2 {
+            color: var(--secondary);
+        }
+
+        .modal-body {
+            color: var(--light);
+            line-height: 1.7;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s ease;
+        }
+
+        .modal-image:hover {
+            transform: scale(1.02);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(255, 175, 179, 0.1);
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .modal-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .route-info h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .route-info h3:hover {
+            color: #ffd1d3;
+        }
+
+        .route-info h3 i {
+            margin-right: 10px;
+            color: var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .route-info h3:hover i {
+            transform: scale(1.2);
+        }
+
+        #modal-details {
+            list-style: none;
+            padding: 0;
+        }
+
+        #modal-details li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* телеграм кнопка в кирове */
+        .telegram-link {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .telegram-link .btn-small {
+            padding: 8px 20px;
+            font-size: 0.9rem;
+        }
+        .telegram-link p {
+            color: #aaa;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        /* адаптив для телефонов */
+        @media (max-width: 992px) {
+            .about-content, .kirov-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd)::before,
+            .timeline-item:nth-child(even)::before {
+                left: 21px;
+            }
+            
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: linear-gradient(145deg, var(--darker-bg), var(--primary));
+                flex-direction: column;
+                padding: 100px 30px 30px;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+                transition: right 0.4s ease;
+                z-index: 999;
+                gap: 10px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+                min-width: 100%;
+            }
+            
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 70px 0;
+            }
+            
+            .hero {
+                padding: 150px 0 70px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 0.9rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+                max-width: 300px;
+                padding: 18px 30px;
+            }
+            
+            .features-grid,
+            .route-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .gallery-subtitle {
+                font-size: 1rem;
+                margin: -30px auto 20px;
+            }
+            
+            .about-image-item img {
+                height: 180px;
+            }
+            
+            .yandex-map-container {
+                height: 350px;
+            }
+            
+            .city-modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+            
+            .city-modal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .city-modal-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .city-modal-header h2 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links a {
+                min-width: 120px;
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .about-images {
+                gap: 15px;
+            }
+            
+            .about-image-item img {
+                height: 150px;
+            }
+            
+            .yandex-map-container {
+                height: 300px;
+            }
+            
+            .feature-card,
+            .route-card {
+                padding: 20px;
+            }
+            
+            .gallery-item {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- шапка сайта, чтоб сверху всегда висела -->
+    <header id="mainHeader">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-spray-can"></i>
+                    <span>ГРАФФИТИ КАК ИСКУССТВО</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home"><span>Главная</span></a></li>
+                    <li><a href="#about"><span>О граффити</span></a></li>
+                    <li><a href="#features"><span>Особенности</span></a></li>
+                    <li><a href="#history"><span>История</span></a></li>
+                    <li><a href="#gallery"><span>Галерея</span></a></li>
+                    <li><a href="#stats"><span>Статистика</span></a></li>
+                    <li><a href="#route"><span>Маршрут</span></a></li>
+                    <li><a href="#kirov"><span>Киров</span></a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- главная картинка с большим заголовком (он всегда светится) -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>ГРАФФИТИ - ИСКУССТВО УЛИЦ</h1>
+            <p>От андеграундных тегов до признанных муралов - исследуйте мир уличного искусства, которое превращает городские пространства в галереи под открытым небом.</p>
+            <a href="#about" class="btn btn-primary fx-push fx-neon">Узнать больше</a>
+            <a href="#route" class="btn fx-push fx-neon">Маршрут по Кирову</a>
+        </div>
+    </section>
+
+    <!-- раздел "о граффити" -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>ЧТО ТАКОЕ ГРАФФИТИ?</h2>
+                <p>Искусство или вандализм? Исследуем противоречивую природу уличного искусства</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 style="color: #ffd1d3; margin-bottom: 20px;">Искусство или вандализм?</h3>
+                    <p>Граффити — это форма художественного выражения, которая существует на стыке искусства и протеста. Рожденное в городской среде, оно представляет собой визуальную коммуникацию, доступную каждому жителю города.</p>
+                    <p>В то время как некоторые видят в граффити акт вандализма, многие признают его как полноценное искусство, способное преображать городские пространства, выражать социальные идеи и создавать уникальную атмосферу.</p>
+                    
+                    <h3 style="color: #ffd1d3; margin-top: 30px; margin-bottom: 20px;">Отличия граффити от стрит-арта</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Критерий</th>
+                                <th>Граффити</th>
+                                <th>Стрит-арт</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Понятность</td>
+                                <td>Узкому кругу лиц</td>
+                                <td>Неподготовленному зрителю</td>
+                            </tr>
+                            <tr>
+                                <td>Внешний вид</td>
+                                <td>Выглядит как подпись или название команды райтеров</td>
+                                <td>Заложен посыл, вызов и ориентированность на публику</td>
+                            </tr>
+                            <tr>
+                                <td>Смысл сюжета</td>
+                                <td>Нет сюжета</td>
+                                <td>Огромный смысл, сюжет</td>
+                            </tr>
+                            <tr>
+                                <td>Автор</td>
+                                <td>Райтер</td>
+                                <td>Художник</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="center-btn" style="text-align: center; margin-top: 30px;">
+                        <a href="#history" class="btn btn-primary fx-push fx-neon">История развития</a>
+                    </div>
+                </div>
+                <div class="about-images">
+                    <div class="about-image-item">
+                        <img src="https://i.pinimg.com/originals/f0/b5/a6/f0b5a6b538d60a3c94798a75d1546f6e.jpg" alt="Граффити в Лондоне">
+                        <div class="image-caption">📍London</div>
+                    </div>
+                    <div class="about-image-item">
+                        <img src="https://media.timeout.com/images/106165591/image.jpg" alt="Граффити в Нью-Йорке">
+                        <div class="image-caption">📍New York</div>
+                    </div>
+                    <div class="about-image-item">
+                        <img src="https://professionalmoron.com/wp-content/uploads/2018/05/gwc14.jpeg" alt="Граффити в Оттаве">
+                        <div class="image-caption">📍Ottawa</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- особенности стрит-арта (иконки чуть растут) -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>ОСОБЕННОСТИ СТРИТ-АРТА</h2>
+                <p>Узнайте, что делает уличное искусство уникальным и значимым</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-brush"></i>
+                    <h3>Уличное искусство</h3>
+                    <p>Граффити существует вне галерей и музеев, делая искусство доступным каждому. Оно превращает обычные стены в художественные полотна.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-volume-up"></i>
+                    <h3>Социальный голос</h3>
+                    <p>Часто граффити становится способом выражения протеста, социальной критики или привлечения внимания к важным проблемам общества.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-palette"></i>
+                    <h3>Разнообразие стилей</h3>
+                    <p>От простых тегов до сложных муралов, 3D-граффити и трафаретов — мир уличного искусства поражает разнообразием техник и стилей.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-city"></i>
+                    <h3>Преображение городов</h3>
+                    <p>Качественные граффити-работы способны преображать городские пространства, скрывать недостатки архитектуры и создавать уникальную атмосферу.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-landmark"></i>
+                    <h3>Создание культурного наследия</h3>
+                    <p>Граффити могут стать частью истории города, сохраняя исторические и патриотические темы для будущих поколений.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Средство объединения сообщества</h3>
+                    <p>Граффити может стать символом единства и солидарности, когда люди собираются вместе, чтобы создать что-то прекрасное.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- история граффити -->
+    <section id="history" class="history-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>ИСТОРИЯ ГРАФФИТИ</h2>
+                <p>От нью-йоркских банд до всемирного признания</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>1920-1930-е годы</h3>
+                        <p>Первые проявления граффити в Нью-Йорке как способ маркировки территорий уличными бандами. Надписи на стенах и товарных вагонах.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>1960-1970-е годы</h3>
+                        <p>Появление первых райтеров (графферов) в Филадельфии и Нью-Йорке. Развитие стилей "теггинг" и "бомбинг". Граффити становится частью хип-хоп культуры.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>1980-е годы</h3>
+                        <p>Власти начинают борьбу с граффити. Художники начинают использовать трафареты для быстроты работы. Появление первых звезд граффити.</p>
+                        <p class="artist-name">• Dondi</p>
+                        <p class="artist-name">• Lee</p>
+                        <p class="artist-name">• Zephyr</p>
+                        <p class="artist-name">• Daze</p>
+                        <p class="artist-name">• Futura 2000</p>
+                        <p>Их работы начинают попадать в галереи.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>1990-е годы</h3>
+                        <p>Граффити приходит в Европу. Появление таких легенд, как <span class="artist-name">Бэнкси</span> и <span class="artist-name">Blek le Rat</span>. Стирание граней между граффити и современным искусством.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2000-е годы - настоящее время</h3>
+                        <p>Признание граффити как полноценного искусства. Появление фестивалей уличного искусства, легальных стен для творчества, масштабных муралов. Граффити становится частью городского брендинга.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- галерея стрит-арта -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>ГАЛЕРЕЯ СТРИТ-АРТА</h2>
+                <p>Стрит-арт в разных городах России и мира</p>
+            </div>
+            <div class="gallery-subtitle">
+                Стрит-арт не только показывает красоту, но и помогает чувствовать друг друга
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-city="ekaterinburg">
+                    <img src="https://static1-repo.aif.ru/1/b5/1136244/c/2c6a10d0ec6797cd436c304d2e0275fc.jpg" alt="Граффити в Екатеринбурге">
+                    <div class="gallery-caption">📍Екатеринбург</div>
+                </div>
+                <div class="gallery-item" data-city="saint-petersburg">
+                    <img src="https://i.pinimg.com/originals/4d/61/ee/4d61ee8d7e6646a9252669f1b72f0430.jpg" alt="Граффити в Санкт-Петербурге">
+                    <div class="gallery-caption">📍Санкт-Петербург</div>
+                </div>
+                <div class="gallery-item" data-city="moscow">
+                    <img src="https://cs14.pikabu.ru/post_img/2021/05/19/8/og_og_1621428783294773272.jpg" alt="Граффити в Москве">
+                    <div class="gallery-caption">📍Москва</div>
+                </div>
+                <div class="gallery-item" data-city="kazan">
+                    <img src="https://s2.stc.all.kpcdn.net/best/kazan/vkazan/images/tild6335-6334-4138-b762-613962666138_____.jpg" alt="Граффити в Казани">
+                    <div class="gallery-caption">📍Казань</div>
+                </div>
+                <div class="gallery-item" data-city="vladivostok">
+                    <img src="https://vladnews.ru/uploads/news/2025/07/08/aa554fba20f150fbca9d21640a4a232577a62abb.jpeg" alt="Граффити во Владивостоке">
+                    <div class="gallery-caption">📍Владивосток</div>
+                </div>
+                <div class="gallery-item" data-city="nizhny-novgorod">
+                    <img src="https://static.mk.ru/upload/entities/2024/07/20/10/photoreportsImages/detailPicture/8d/cb/64/08/c260b002bd0f34d382915fd0b5eb0977.jpg" alt="Граффити в Нижнем Новгороде">
+                    <div class="gallery-caption">📍Нижний Новгород</div>
+                </div>
+                <div class="gallery-item" data-city="sochi">
+                    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d73e3689584505.5df958a3b539f.jpg" alt="Граффити в Сочи">
+                    <div class="gallery-caption">📍Сочи</div>
+                </div>
+                <div class="gallery-item" data-city="vladimir">
+                    <img src="https://vladimir-city.ru/upload/iblock/86c/002.JPG" alt="Граффити во Владимире">
+                    <div class="gallery-caption">📍Владимир</div>
+                </div>
+                <div class="gallery-item" data-city="magadan">
+                    <img src="https://avatars.mds.yandex.net/get-altay/4538345/2a00000178c9894d1cda9f549ec7e5782440/XXL_height" alt="Граффити в Магадане">
+                    <div class="gallery-caption">📍Магадан</div>
+                </div>
+                <div class="gallery-item" data-city="altai">
+                    <img src="https://biwork.ru/picture/102532/900x500.jpg" alt="Граффити на Алтае">
+                    <div class="gallery-caption">📍Алтай</div>
+                </div>
+                <div class="gallery-item" data-city="kirov">
+                    <img src="https://pizhanka-r43.gosuslugi.ru/netcat_files/generated/93/125/760x570/1609/8ef1b78ef551488a260b0753c523292c.jpg?crop=0%3A0%3A0%3A0&hash=3adde36812a9ad7982293d62a610d3c5&resize_mode=0&wm_m=0" alt="Граффити в Кирове">
+                    <div class="gallery-caption">📍Киров</div>
+                </div>
+                <div class="gallery-item" data-city="omsk">
+                    <img src="https://avatars.mds.yandex.net/get-altay/14014620/2a00000192060dba7786df3df39269aea1cb/M_height" alt="Граффити в Омске">
+                    <div class="gallery-caption">📍Омск</div>
+                </div>
+                <div class="gallery-item" data-city="chelyabinsk">
+                    <img src="https://avatars.mds.yandex.net/get-altay/7883089/2a000001904e99a543588f7cc0aea4de6b6c/M_height" alt="Граффити в Челябинске">
+                    <div class="gallery-caption">📍Челябинск</div>
+                </div>
+                <div class="gallery-item" data-city="ufa">
+                    <img src="https://avatars.mds.yandex.net/get-altay/9714262/2a0000018a221b875f1b03d6d2eb11fd5f0f/M_height" alt="Граффити в Уфе">
+                    <div class="gallery-caption">📍Уфа</div>
+                </div>
+                <div class="gallery-item" data-city="tomsk">
+                    <img src="https://avatars.mds.yandex.net/get-altay/14844975/2a00000196905e7af5a9a50defb07ed9c465/M_height" alt="Граффити в Томске">
+                    <div class="gallery-caption">📍Томск</div>
+                </div>
+                <div class="gallery-item" data-city="orenburg">
+                    <img src="https://avatars.mds.yandex.net/get-altay/4335885/2a00000190b9d1434d93c031539f592ce13b/M_height" alt="Граффити в Оренбурге">
+                    <div class="gallery-caption">📍Оренбург</div>
+                </div>
+                <div class="gallery-item" data-city="tula">
+                    <img src="https://avatars.mds.yandex.net/get-altay/5554141/2a00000183f52ba36ad73123aad375b58a7c/M_height" alt="Граффити в Туле">
+                    <div class="gallery-caption">📍Тула</div>
+                </div>
+                <div class="gallery-item" data-city="tver">
+                    <img src="https://avatars.mds.yandex.net/get-altay/14920258/2a000001984862b3c73f4ebcc34f481b3c08/M_height" alt="Граффити в Твери">
+                    <div class="gallery-caption">📍Тверь</div>
+                </div>
+                <div class="gallery-item" data-city="minsk">
+                    <img src="https://avatars.mds.yandex.net/get-altay/9749133/2a000001890ddb3c6de719f05f856ae2da7b/M_height" alt="Граффити в Минске">
+                    <div class="gallery-caption">📍Минск</div>
+                </div>
+                <div class="gallery-item" data-city="astana">
+                    <img src="https://avatars.mds.yandex.net/get-altay/11492238/2a0000018e6c2f64a98408ab3971cf8a0786/M_height" alt="Граффити в Астане">
+                    <div class="gallery-caption">📍Астана</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- статистика опроса -->
+    <section id="stats" class="stats">
+        <div class="container">
+            <div class="section-title">
+                <h2>СТАТИСТИКА ОПРОСА</h2>
+                <p>Результаты анкетирования среди учащихся 10-11-х классов КОГОАУ ВТЛ</p>
+            </div>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <i class="fas fa-paint-roller"></i>
+                    <div class="stat-number" data-target="81">0</div>
+                    <div class="stat-text">столкнулись с граффити в жизни</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-thumbs-up"></i>
+                    <div class="stat-number" data-target="25">0</div>
+                    <div class="stat-text">нравятся граффити в Кирове</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-history"></i>
+                    <div class="stat-number" data-target="37">0</div>
+                    <div class="stat-text">знают историю граффити</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <div class="stat-number" data-target="63">0</div>
+                    <div class="stat-text">хотят посетить выставку граффити</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- граффити-маршрут по кирову -->
+    <section id="route" class="route-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>ГРАФФИТИ-МАРШРУТ ПО КИРОВУ</h2>
+                <p>Самые интересные граффити города Кирова</p>
+            </div>
+            <div class="route-grid">
+                <div class="route-card" data-id="1">
+                    <div class="route-image">
+                        <img src="https://gorodkirov.ru/media/main_photos/2024/06/25/%D1%83%D1%88%D0%BA%D1%83%D0%B9%D0%BD%D0%B8%D0%BA%D0%B8.jpg" alt="Ушкуйники">
+                    </div>
+                    <h3>Ушкуйники</h3>
+                    <p>Профсоюзная ул., 43</p>
+                    <div class="route-indicator">
+                        <span class="click-hint">информация →</span>
+                    </div>
+                </div>
+                <div class="route-card" data-id="2">
+                    <div class="route-image">
+                        <img src="https://2020.festivalsreda.ru/upload/iblock/bc0/bc0ab9b83814eac8266254ebdf9c1c5e.jpg" alt="Дымка">
+                    </div>
+                    <h3>Дымка</h3>
+                    <p>ул. Комсомольская, д.23</p>
+                    <div class="route-indicator">
+                        <span class="click-hint">информация →</span>
+                    </div>
+                </div>
+                <div class="route-card" data-id="3">
+                    <div class="route-image">
+                        <img src="https://www.newsler.ru/data/content/2018/71134/91042993bfe7d0966c4bb7c425d135de.jpg" alt="Галактика Краснонафт">
+                    </div>
+                    <h3>Галактика Краснонафт</h3>
+                    <p>ул. Комсомольская, д.99</p>
+                    <div class="route-indicator">
+                        <span class="click-hint">информация →</span>
+                    </div>
+                </div>
+                <div class="route-card" data-id="4">
+                    <div class="route-image">
+                        <img src="https://avatars.mds.yandex.net/i?id=3aa71a215b271526036291640c599ca3e96624a3-5210229-images-thumbs&n=13" alt="650 цветов граффити">
+                    </div>
+                    <h3>650 цветов граффити</h3>
+                    <p>ул. Екатерины Кочкиной, д.4</p>
+                    <div class="route-indicator">
+                        <span class="click-hint">информация →</span>
+                    </div>
+                </div>
+                <div class="route-card" data-id="5">
+                    <div class="route-image">
+                        <img src="https://avatars.mds.yandex.net/i?id=3dea2e914dc7734beac2d5046100d56a_l-7761820-images-thumbs&n=13" alt="Таблица Менделеева">
+                    </div>
+                    <h3>Таблица Менделеева</h3>
+                    <p>ул. Менделеева, д.26</p>
+                    <div class="route-indicator">
+                        <span class="click-hint">информация →</span>
+                    </div>
+                </div>
+                <div class="route-card" data-id="6">
+                    <div class="route-image">
+                        <img src="https://i3.photo.2gis.com/images/branch/58/8162774355652457_eb0e.jpg" alt="Дымка">
+                    </div>
+                    <h3>Дымка</h3>
+                    <p>ул. Свердлова, д.31</p>
+                    <div class="route-indicator">
+                        <span class="click-hint">информация →</span>
+                    </div>
+                </div>
+                <div class="route-card" data-id="7">
+                    <div class="route-image">
+                        <img src="https://avatars.mds.yandex.net/get-altay/2767250/2a000001707a41badb22cf4031913f556485/XXL" alt="Фантазириум">
+                    </div>
+                    <h3>Фантазириум</h3>
+                    <p>ул. Спасская, д.67д</p>
+                    <div class="route-indicator">
+                        <span class="click-hint">информация →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- граффити в кирове -->
+    <section id="kirov" class="kirov-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>ГРАФФИТИ И СТРИТ-АРТЫ В КИРОВЕ</h2>
+                <p>Уличное искусство в нашем городе</p>
+            </div>
+            <div class="kirov-content">
+                <div class="kirov-text">
+                    <h3 style="color: #ffd1d3; margin-bottom: 20px; font-size: 28px;">Уличное искусство в нашем городе</h3>
+                    <p>Киров, как и многие другие города России, имеет свою уникальную историю развития граффити-культуры. От первых неформальных надписей до масштабных муралов — уличное искусство стало частью городского ландшафта.</p>
+                    <p>Сегодня в Кирове можно найти как работы местных художников, так и произведения, созданные в рамках всероссийских акций. Особенностью города стали патриотические граффити, а также работы, отражающие местный колорит и историю.</p>
+                    <p>В рамках исследования граффити в Кирове был разработан специальный маршрут для знакомства с лучшими образцами уличного искусства города.</p>
+                    
+                    <h4 style="color: #ffd1d3; margin: 25px 0 15px;">Популярные места с граффити в Кирове:</h4>
+                    <ul class="route-list">
+                        <li data-target="1"><strong>Ушкуйники</strong> - Профсоюзная ул., 43</li>
+                        <li data-target="2"><strong>Дымка</strong> - ул. Комсомольская, д.23</li>
+                        <li data-target="3"><strong>Галактика Краснонафт</strong> - ул. Комсомольская, д.99</li>
+                        <li data-target="4"><strong>650 цветов граффити</strong> - ул. Екатерины Кочкиной, д.4</li>
+                        <li data-target="5"><strong>Таблица Менделеева</strong> - ул. Менделеева, д.26</li>
+                        <li data-target="6"><strong>Дымка</strong> - ул. Свердлова, д.31</li>
+                        <li data-target="7"><strong>Фантазириум</strong> - ул. Спасская, д.67д</li>
+                    </ul>
+                </div>
+                <div class="kirov-map">
+                    <h3 style="color: #ffd1d3; margin-bottom: 15px; text-align: center;">Карта граффити-маршрута по Кирову</h3>
+                    <div class="yandex-map-container">
+                        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A3f8e85a35e2481578c473fa1922c74087707429149e0f0ae77622693a123d98d&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+                    </div>
+                    <p style="margin-top: 15px; text-align: center; color: #aaa;">Здесь представлена карта стрит-арт объектов, которые вы можете увидеть.</p>
+                    
+                    <!-- телеграм ссылка -->
+                    <div class="telegram-link">
+                        <a href="https://t.me/kirov_relax" target="_blank" class="btn btn-small fx-push fx-neon" style="padding: 8px 20px; font-size: 0.9rem;">
+                            <i class="fab fa-telegram-plane" style="margin-right: 8px;"></i>Мой Telegram-канал
+                        </a>
+                        <p>Интересные места в Кирове и Кировской области</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- подвал сайта -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; <span id="current-year">2026</span> Граффити как искусство. Все права защищены. Разработано на основе исследования Петелиной О.М. "Граффити как искусство (на примере г.Кирова)"</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- модалка для кировских граффити -->
+    <div id="graffiti-modal" class="graffiti-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-spray-can"></i>
+                </div>
+                <h2 id="modal-title"></h2>
+            </div>
+            <div class="modal-body">
+                <div id="modal-description"></div>
+                <div class="modal-image">
+                    <img id="modal-image" src="" alt="">
+                </div>
+                <div class="route-info">
+                    <h3><i class="fas fa-map-marker-alt"></i> Информация о граффити:</h3>
+                    <ul id="modal-details"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- модалка для галереи городов -->
+    <div id="city-graffiti-modal" class="city-graffiti-modal">
+        <div class="city-modal-content">
+            <span class="city-close-modal">&times;</span>
+            <div class="city-modal-header">
+                <div class="city-modal-icon">
+                    <i class="fas fa-city"></i>
+                </div>
+                <h2 id="city-modal-title"></h2>
+            </div>
+            <div class="city-modal-body">
+                <div id="city-modal-description"></div>
+                <div class="city-modal-image">
+                    <img id="city-modal-image" src="" alt="">
+                </div>
+                <div id="city-modal-graffitis"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // всё для интерактива: тыкать, крутить, прыгать
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Сайт ожил!');
+            initApp();
+        });
+
+        function initApp() {
+            console.log('Запускаю приколы...');
+            
+            initMobileMenu();          // меню для телефона
+            initSmoothScrolling();      // плавный скролл по ссылкам
+            initStatsCounter();         // циферки бегут
+            initClickableGraffiti();     // тыкаешь на граффити в Кирове - подробности
+            initClickableGallery();      // тыкаешь на город - куча картинок
+            initScrollEffects();         // шапка прячется когда вниз
+            document.getElementById('current-year').textContent = '2026';
+            initScrollAnimations();      // карточки вылетают
+            initKirovList();             // список в Кирове тоже можно тыкать
+            initTimelineItemsAnimation(); // история появляется по кусочкам
+            initStatsReplay();            // если опять увидели статистику - циферки бегут заново
+            initRippleEffect();           // волна при клике в галерее
+            
+            console.log('Всё готово!');
+        }
+
+        // меню для телефона
+        function initMobileMenu() {
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            if (!menuBtn || !navLinks) return;
+            
+            menuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    const icon = menuBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
+        }
+
+        // плавный скролл
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#' || href === '#!') return;
+                    
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        
+                        const navLinks = document.querySelector('.nav-links');
+                        const menuBtn = document.querySelector('.mobile-menu-btn');
+                        if (navLinks) navLinks.classList.remove('active');
+                        if (menuBtn) {
+                            const icon = menuBtn.querySelector('i');
+                            if (icon) {
+                                icon.classList.remove('fa-times');
+                                icon.classList.add('fa-bars');
+                            }
+                        }
+                        
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = target.offsetTop - headerHeight + 10;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // анимация циферок
+        function animateCounter(el, target) {
+            let start = 0;
+            const duration = 600;
+            const step = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+                start += step;
+                if (start >= target) {
+                    el.textContent = Math.floor(target).toString() + '%';
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(start).toString() + '%';
+                }
+            }, 16);
+        }
+
+        // первый раз показать проценты
+        function initStatsCounter() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            if (statNumbers.length === 0) return;
+            
+            function isInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return rect.top <= window.innerHeight * 0.8;
+            }
+            
+            let animated = false;
+            
+            function checkCounters() {
+                const statsSection = document.querySelector('.stats');
+                if (!animated && statsSection && isInViewport(statsSection)) {
+                    statNumbers.forEach(stat => {
+                        const target = parseFloat(stat.getAttribute('data-target'));
+                        if (!isNaN(target)) {
+                            animateCounter(stat, target);
+                        }
+                    });
+                    animated = true;
+                }
+            }
+            
+            setTimeout(checkCounters, 500);
+            window.addEventListener('scroll', checkCounters);
+        }
+
+        // кировские граффити (карточки)
+        function initClickableGraffiti() {
+            console.log('Кировские карточки...');
+            
+            const routeCards = document.querySelectorAll('.route-card');
+            const graffitiModal = document.getElementById('graffiti-modal');
+            const closeModal = document.querySelector('.close-modal');
+            
+            if (routeCards.length === 0) {
+                console.warn('Нет карточек');
+                return;
+            }
+            
+            const graffitiData = {
+                '1': {
+                    title: 'Ушкуйники',
+                    description: 'Граффити посвящено ушкуйникам — новгородским речным пиратам и первопроходцам, которые сыграли важную роль в освоении северных земель. Работа отражает историческую связь Кировской области с новгородскими переселенцами.',
+                    image: 'https://gorodkirov.ru/media/main_photos/2024/06/25/%D1%83%D1%88%D0%BA%D1%83%D0%B9%D0%BD%D0%B8%D0%BA%D0%B8.jpg',
+                    details: [
+                        'Адрес: Профсоюзная ул., 43',
+                        'Размер: 5 × 3 метра',
+                        'Год создания: 2024',
+                        'Автор: Арсений Кифоренко'
+                    ]
+                },
+                '2': {
+                    title: 'Дымка',
+                    description: 'Граффити вдохновлено знаменитой дымковской игрушкой — одним из символов Кировской области. Яркие цвета и традиционные орнаменты превращают стену в современное проявление народного искусства.',
+                    image: 'https://2020.festivalsreda.ru/upload/iblock/bc0/bc0ab9b83814eac8266254ebdf9c1c5e.jpg',
+                    details: [
+                        'Адрес: ул. Комсомольская, д.23',
+                        'Размер: 12 × 30 метров',
+                        'Год создания: 2014',
+                        'Автор: Дмитрий Елизаров'
+                    ]
+                },
+                '3': {
+                    title: 'Галактика Краснонафт',
+                    description: 'Космическое граффити, изображающее фантастическую галактику. Работа выполнена в стиле сюрреализма и привлекает внимание прохожих своей масштабностью и детализацией.',
+                    image: 'https://www.newsler.ru/data/content/2018/71134/91042993bfe7d0966c4bb7c425d135de.jpg',
+                    details: [
+                        'Адрес: ул. Комсомольская, д.99',
+                        'Размер: 20 × 30 метров',
+                        'Год создания: 2018',
+                        'Автор: Евгений Сесюков'
+                    ]
+                },
+                '4': {
+                    title: '650 цветов граффити',
+                    description: 'Одно из самых красочных граффити в городе, созданное с использованием более 650 различных оттенков. Абстрактная композиция символизирует разнообразие и многогранность городской жизни.',
+                    image: 'https://avatars.mds.yandex.net/i?id=3aa71a215b271526036291640c599ca3e96624a3-5210229-images-thumbs&n=13',
+                    details: [
+                        'Адрес: ул. Екатерины Кочкиной, д.4',
+                        'Размер: 15 × 25 метров',
+                        'Год создания: 2023',
+                        'Автор: Александр и Евгений Сесюковы'
+                    ]
+                },
+                '5': {
+                    title: 'Таблица Менделеева',
+                    description: 'Образовательное граффити, изображающее таблицу Менделеева в современной интерпретации. Проект был создан при участии студентов химического факультета местного университета.',
+                    image: 'https://avatars.mds.yandex.net/i?id=3dea2e914dc7734beac2d5046100d56a_l-7761820-images-thumbs&n=13',
+                    details: [
+                        'Адрес: ул. Менделеева, д.26',
+                        'Размер: 20 × 30 метров',
+                        'Год создания: 2020',
+                        'Автор: Студенческая инициатива'
+                    ]
+                },
+                '6': {
+                    title: 'Дымка (вторая локация)',
+                    description: 'Еще одна работа, посвященная дымковской игрушке, но выполненная в более современном стиле. Граффити сочетает традиционные мотивы с элементами поп-арта.',
+                    image: 'https://i3.photo.2gis.com/images/branch/58/8162774355652457_eb0e.jpg',
+                    details: [
+                        'Адрес: ул. Свердлова, д.31',
+                        'Размер: 6 × 4 метра',
+                        'Год создания: 2018',
+                        'Автор: Местный художник'
+                    ]
+                },
+                '7': {
+                    title: 'Фантазириум',
+                    description: '«Фантазириум» — единственная в Кирове галерея граффити. Это арт-пространство, где проводят экскурсии, выставки картин и фотосессии. Здесь можно погрузиться в мир уличного искусства и увидеть работы лучших художников города.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/2767250/2a000001707a41badb22cf4031913f556485/XXL',
+                    details: [
+                        'Адрес: ул. Спасская, д.67д',
+                        'Размер: все помещения внутри',
+                        'Год создания: 2019',
+                        'Автор: Евгений и Александр Сесюковы'
+                    ]
+                }
+            };
+            
+            routeCards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function() {
+                    const graffitiId = this.getAttribute('data-id');
+                    const data = graffitiData[graffitiId];
+                    if (!data) return;
+                    
+                    document.getElementById('modal-title').textContent = data.title;
+                    document.getElementById('modal-description').textContent = data.description;
+                    document.getElementById('modal-image').src = data.image;
+                    document.getElementById('modal-image').alt = data.title;
+                    
+                    const detailsList = document.getElementById('modal-details');
+                    detailsList.innerHTML = '';
+                    data.details.forEach(detail => {
+                        const li = document.createElement('li');
+                        li.textContent = detail;
+                        detailsList.appendChild(li);
+                    });
+                    
+                    graffitiModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    graffitiModal.scrollTop = 0;
+                    
+                    this.style.animation = 'clickPulse 0.3s ease';
+                    setTimeout(() => { this.style.animation = ''; }, 300);
+                    
+                    routeCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            if (closeModal) {
+                closeModal.addEventListener('click', function() {
+                    graffitiModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    routeCards.forEach(card => card.classList.remove('active'));
+                });
+            }
+            
+            graffitiModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    graffitiModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    routeCards.forEach(card => card.classList.remove('active'));
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && graffitiModal.style.display === 'block') {
+                    graffitiModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    routeCards.forEach(card => card.classList.remove('active'));
+                }
+            });
+        }
+
+        // галерея городов (с картинками)
+        function initClickableGallery() {
+            console.log('Настраиваю города...');
+            
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const cityModal = document.getElementById('city-graffiti-modal');
+            const cityCloseModal = document.querySelector('.city-close-modal');
+            
+            if (galleryItems.length === 0) return;
+            
+            // все картинки для городов (полные данные)
+            const cityData = {
+                'ekaterinburg': {
+                    title: 'Граффити в Екатеринбурге',
+                    description: 'Екатеринбург — один из центров стрит-арта в России. Здесь можно найти как масштабные муралы, так и небольшие авторские работы. Город активно поддерживает уличное искусство, проводя ежегодные фестивали.',
+                    image: 'https://static1-repo.aif.ru/1/b5/1136244/c/2c6a10d0ec6797cd436c304d2e0275fc.jpg',
+                    graffitis: [
+                        { image: 'https://static1-repo.aif.ru/1/b5/1136244/c/2c6a10d0ec6797cd436c304d2e0275fc.jpg', title: 'Граффити "Урал"' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/10703420/2a0000018a3c06d6f22b454f2c2e27b42a3e/orig', title: 'Девушка под одеялом' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/5098140/2a0000018216f77ff59f18261e055f02d61e/L', title: 'Две крепости' },
+                        { image: 'https://avatars.mds.yandex.net/get-discovery-int/1327602/2a000001821a7d11c4585cc266f82420b3a1/L', title: 'Тихое пастбище' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/5298780/2a0000018216ed6038dd7afd011e6e61c261/L', title: 'Портрет с гусем' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/5098556/2a0000018216ec23a19b2c65a9105ce4e030/L', title: 'Тропа героя' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/5098140/2a0000018216fb774fc2542c1bf1b003f3c6/L', title: 'Mazdarevic' }
+                    ]
+                },
+                'saint-petersburg': {
+                    title: 'Граффити в Санкт-Петербурге',
+                    description: 'Санкт-Петербург — культурная столица России, где уличное искусство гармонично сочетается с классической архитектурой. Здесь проходят крупнейшие фестивали стрит-арта, привлекающие художников со всего мира.',
+                    image: 'https://i.pinimg.com/originals/4d/61/ee/4d61ee8d7e6646a9252669f1b72f0430.jpg',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/11203687/2a00000191a94ae7fd200c5b1969568a7d7c/M_height', title: 'Граффити поезд Серго Орджоникидзе' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/14917207/2a00000198dde83f40a0caaae9fe8fa0e744/M_height', title: 'Граффити с Михаилом Горшенёвым' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/5104371/2a0000018f0cf8eb766471ac33b5feb69a30/M_height', title: 'Кадры российского кино' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16137047/2a00000197ea0ff6fdd28c8574fd7ffa6c4b/M_height', title: 'Граффити Честера Беннингтона' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/2051686/2a00000171f0b3b7e123dd338fd8849c1a44/XL', title: 'Мурал Ангел Победы' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/14837019/2a0000019706b2689bec988a45e085ae02cc/XL', title: 'Галерея урбанфрески' }
+                    ]
+                },
+                'moscow': {
+                    title: 'Граффити в Москве',
+                    description: 'Москва — город, где уличное искусство прошло путь от нелегальных шрифтовых надписей до музейных архивов и концептуальных стрит-лого (например, пуговица или лестница Кирилла Кто), а сегодня ключевой площадкой для легального искусства является бывший завод "Кристалл", где представлены работы ведущих художников.',
+                    image: 'https://cs14.pikabu.ru/post_img/2021/05/19/8/og_og_1621428783294773272.jpg',
+                    graffitis: [
+                        { image: 'https://cs14.pikabu.ru/post_img/2021/05/19/8/og_og_1621428783294773272.jpg', title: 'Московский мурал' },
+                        { image: 'https://winzavod.ru/upload/iblock/bcc/zmlmrqqr38r2k5t67cfu11ib5jmsaaws/DSC08539.jpg', title: 'Нетстен' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/13925334/2a00000192be277819869bc991c7164961b1/orig', title: 'Разумовский был прав' },
+                        { image: 'https://cs14.pikabu.ru/post_img/2021/05/19/8/og_og_1621428783294773272.jpg', title: 'Шоссе энтузиастов' },
+                        { image: 'https://www.mos.ru/upload/newsfeed/articles/02_vn_2023-02-09_Graffiti_Lanovoi_8.JPG', title: 'Рокоссовский сцена фильма' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/15401795/2a00000197929e56ae961b82b0b3bca8a0cc/orig', title: 'Тургенев' },
+                        { image: 'https://live.staticflickr.com/3715/9059132813_c388651594_b.jpg', title: 'Лучший город земли' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/13793720/2a00000192edcc033adcc78bd86faa08bd9e/orig', title: 'Минин и Пожарский' }
+                    ]
+                },
+                'kazan': {
+                    title: 'Граффити в Казани',
+                    description: 'Казань — город, где уличное искусство служит площадкой для общественного диалога между жителями, муниципалитетом и художниками, формируя культурное разнообразие и новые формы социокультурной деятельности в публичном пространстве.',
+                    image: 'https://s2.stc.all.kpcdn.net/best/kazan/vkazan/images/tild6335-6334-4138-b762-613962666138_____.jpg',
+                    graffitis: [
+                        { image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C._%D0%A3%D0%BB%D0%B8%D1%86%D0%B0_%D0%90%D0%B1%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D0%BE%D0%B2%D0%B0%2C_28_%D0%B8_30._%D0%9C%D1%83%D1%80%D0%B0%D0%BB_%C2%AB%D0%9F%D0%BE%D1%81%D0%B2%D1%8F%D1%89%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA%D0%BE%D1%80%D0%BD%D1%8F%D0%BC%C2%BB.JPG/250px-%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C._%D0%A3%D0%BB%D0%B8%D1%86%D0%B0_%D0%90%D0%B1%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D0%BE%D0%B2%D0%B0%2C_28_%D0%B8_30._%D0%9C%D1%83%D1%80%D0%B0%D0%BB_%C2%AB%D0%9F%D0%BE%D1%81%D0%B2%D1%8F%D1%89%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA%D0%BE%D1%80%D0%BD%D1%8F%D0%BC%C2%BB.JPG', title: 'Посвящение корням' },
+                        { image: 'https://www.tatar-inform.ru/images/uploads/72d45097b39ee60473804befeecc3904.jpg', title: 'Мурал' },
+                        { image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C._%D0%A3%D0%BB%D0%B8%D1%86%D0%B0_%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%2C_45._%D0%9C%D1%83%D1%80%D0%B0%D0%BB_%C2%AB%D0%A2%D0%B2%D0%BE%D1%80%D0%B5%D1%86%C2%BB.JPG/500px-%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C._%D0%A3%D0%BB%D0%B8%D1%86%D0%B0_%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%2C_45._%D0%9C%D1%83%D1%80%D0%B0%D0%BB_%C2%AB%D0%A2%D0%B2%D0%BE%D1%80%D0%B5%D1%86%C2%BB.JPG', title: 'Фреска Творец' },
+                        { image: 'https://inde.io/wp-content/uploads/archive-20xx/uploads/1cfccb52ac9d66841609a3af7f0d0eab.jpg', title: 'Татнефть Арены' },
+                        { image: 'https://kazved.ru/images/uploads/54bcc9462fd2d278bacb656c1a20ab39.jpeg', title: 'Граффити посвященное науке и знаниям' },
+                        { image: 'https://avatars.dzeninfra.ru/get-zen_doc/2458644/pub_5f1f2860959a4266b7ad039f_5f1f2b24abbdbf32b1d344c2/scale_1200', title: 'Мы с вами' },
+                        { image: 'https://f78e1a6a-ca4c-458a-b3f0-9f53a2bad2a5.selstorage.ru/2023-12-19/5ENJbwX3LfF9of7X.jpeg', title: 'Вечерняя казань' }
+                    ]
+                },
+                'vladivostok': {
+                    title: 'Граффити во Владивостоке',
+                    description: 'Владивосток — неофициальная "столица граффити", где легитимные муралы преображают дома в центре и на окраинах, а в визуальном контексте работ доминируют исторические сюжеты, персоналии и острые социальные темы.',
+                    image: 'https://vladnews.ru/uploads/news/2025/07/08/aa554fba20f150fbca9d21640a4a232577a62abb.jpeg',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/236825/2a00000186c49983aa4c5d59217cc095d04a/M_height', title: 'Мурал Миллионка' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/965007/2a0000018b2345cb53dedeb7ef20c1bffff4/M_height', title: 'Мурал Миллионка' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/15157522/2a00000195bbed612eb1ace99fa5687f8cc2/M_height', title: 'Тигр' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/6221595/2a00000180ff6554540e9f239c948c941e39/XL', title: 'Эй ты люби меня' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/6237886/2a00000180ff2342382f29e05623fcaad0fa/XL', title: 'Сграффито 33 символа Владивостока' }
+                    ]
+                },
+                'nizhny-novgorod': {
+                    title: 'Граффити в Нижнем Новгороде',
+                    description: 'Нижний Новгород — признанная сообществом неофициальная столица российского стрит-арта, где уличное искусство стало важной частью культурной повестки: по нему составляют туристические путеводители, а создание муралов включают в программу крупнейших мероприятий, таких как биеннале.',
+                    image: 'https://static.mk.ru/upload/entities/2024/07/20/10/photoreportsImages/detailPicture/8d/cb/64/08/c260b002bd0f34d382915fd0b5eb0977.jpg',
+                    graffitis: [
+                        { image: 'https://www.opennov.ru/sites/default/files/images/news/1m1a5797-bq.jpg', title: 'Мы разные, но едины' },
+                        { image: 'http://s0.rbk.ru/v6_top_pics/media/img/1/47/756685167714471.jpg', title: '801-летию Нижнего Новгорода' },
+                        { image: 'https://i6.vgoroden.ru/61cy9yf8ddmq1_ijdvro/graffiti-nizhniy-novgorod-gorod-trudovoy-doblesti-sozdali-u-moskovskogo-vokzala-foto-1.jpeg', title: 'Город труда' },
+                        { image: 'https://files.pravda-nn.ru/2023/12/4JVlkMDXVPA-1200x800.jpg', title: 'Место' },
+                        { image: 'https://www.vremyan.ru/_data/objects/0043/6921/img.436921.img_8842.jpg', title: 'В бой идут одни старики' }
+                    ]
+                },
+                'sochi': {
+                    title: 'Граффити в Сочи',
+                    description: 'Сочи — город, где уличные художественные проекты стали заметной частью городской жизни, превращая улицы в открытый музей и добавляя яркие штрихи к архитектурному ансамблю курорта.',
+                    image: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d73e3689584505.5df958a3b539f.jpg',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/10878699/2a00000192ae2c2fc53bb8a54d3ff0b65484/orig', title: 'А зори здесь тихие' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/13906970/2a00000192fcf98e95cbf510aa716b712431/orig', title: 'Управдом друг человека' },
+                        { image: 'https://cs10.pikabu.ru/post_img/2019/02/07/8/og_og_1549543748298885291.jpg', title: 'Эйнштейн' },
+                        { image: 'https://cs7.pikabu.ru/post_img/2018/01/30/8/og_og_1517319174262455289.jpg', title: 'Никола Тесла' },
+                        { image: 'https://sochifornia.com/wp-content/uploads/2025/05/Маяковский-граффити-Сочи-1024x683.jpg', title: 'Маяковский' },
+                        { image: 'https://images.scrolller.com/pico/mib-graffiti-in-sochi-5bthw4icjl.jpg', title: 'Люди в чёрном' }
+                    ]
+                },
+                'vladimir': {
+                    title: 'Граффити во Владимире',
+                    description: 'Владимир — город, где современная уличная графика практически не развита, несмотря на наличие ярких идей у местных художников (например, у Александра Григоряна, члена Союза художников России).',
+                    image: 'https://vladimir-city.ru/upload/iblock/86c/002.JPG',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16394283/2a0000019778c0cad820b6fa0cd62e7af731/orig', title: 'Гербарий' },
+                        { image: 'http://avatars.mds.yandex.net/get-altay/5115998/2a0000018f0744fcf01e0368725e2a270ca3/orig', title: 'Лови его' },
+                        { image: 'https://sun9-38.userapi.com/s/v1/ig2/nTCa7t03QEBcJot4EQ5Aecg_byJeCx5nkcyNClsHYV-XooYdaa56hNVym2uT2KbLCgzKHJFKN5IWcFUyNR8eHHXu.jpg?quality=95&as=32x24,48x36,72x54,108x81,160x120,240x180,360x269,480x359,540x404,640x479,720x539,1080x808,1280x958&from=bu&cs=1280x958', title: 'День во Владимире' },
+                        { image: 'https://avatars.dzeninfra.ru/get-zen_doc/5318099/pub_62791a33bcf9435902fb031a_62791b4ff680416ea322a40b/scale_1200', title: 'Победное' },
+                        { image: 'http://vladday.ru/media/archive/image/2023/08/su3ww3R3AHUfK7iMN5c_oXk4VMHEpAoq.jpg', title: 'Читающая лягушка' },
+                        { image: 'https://sun9-77.userapi.com/s/v1/ig2/KK6ycbZwYoxl2GDt5J4yhjF-BQUT4yx-uzTWBHLQWMJ53YWsH7NeXkLRC2VQX2T_kJ_mnC00TU7btKsWAJctnnya.jpg?quality=96&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,1080x810,1280x960,1440x1080,2560x1920&from=bu&cs=1280x960', title: 'Девушка из Чебоксар' }
+                    ]
+                },
+                'magadan': {
+                    title: 'Граффити в Магадане',
+                    description: 'Магадан — место, где стрит-арт используется для создания комфортной среды в условиях суровой зимы: на зданиях вахтового поселка появились изображения животных, обитающих в регионе, чтобы радовать глаз и поднимать настроение.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/4538345/2a00000178c9894d1cda9f549ec7e5782440/XXL_height',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/9849468/2a0000018b683e3598a635dcda7b126ca196/M_height', title: 'Два кита' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/11395962/2a0000018c5af29ce02378801ad50442f100/M_height', title: 'Панно Первооткрывателям и первостроителям Колымы и Чукотки' }
+                    ]
+                },
+                'altai': {
+                    title: 'Граффити на Алтае',
+                    description: 'Алтайский край (Барнаул) — регион, где граффити зарождалось с начала 2000-х годов как форма свободного художественного самовыражения, не связанная с хип-хоп культурой, через первые акции ("Слово на заборе — тоже искусство!") и фестивали "Paint Methods".',
+                    image: 'https://biwork.ru/picture/102532/900x500.jpg',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/5265775/2a0000017b96a9f96e4b21969c35f6860e45/M_height', title: 'Алёнушка' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/11187599/2a0000018cf642982592b70387a87eb83dc6/M_height', title: 'Граффити Спасибо медикам' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/12728107/2a0000018faf11425ea7d6c0e4348b13c27f/XXXL', title: 'Цой' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/15343885/2a0000019701d2465cba3be6739cd7608315/XXXL', title: 'Николай Улагашевич Улагашев' }
+                    ]
+                },
+                'kirov': {
+                    title: 'Граффити в Кирове',
+                    description: 'Киров — город, где уличные художники (например, загадочный "Круг треугольник квадрат" и Сиб) создают культовые неформальные места, превращая город в более интересный, загадочный и атмосферный, а их работы становятся объектами прогулок наравне с историческими памятниками.',
+                    image: 'https://pizhanka-r43.gosuslugi.ru/netcat_files/generated/93/125/760x570/1609/8ef1b78ef551488a260b0753c523292c.jpg?crop=0%3A0%3A0%3A0&hash=3adde36812a9ad7982293d62a610d3c5&resize_mode=0&wm_m=0',
+                    graffitis: [
+                        { image: 'https://pizhanka-r43.gosuslugi.ru/netcat_files/generated/93/125/760x570/1609/8ef1b78ef551488a260b0753c523292c.jpg?crop=0%3A0%3A0%3A0&hash=3adde36812a9ad7982293d62a610d3c5&resize_mode=0&wm_m=0', title: '650 цветов граффити' },
+                        { image: 'https://gorodkirov.ru/media/main_photos/2024/06/25/%D1%83%D1%88%D0%BA%D1%83%D0%B9%D0%BD%D0%B8%D0%BA%D0%B8.jpg', title: 'Ушкуйники' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/15389657/2a0000019745848ecd15c0ae34d94ac39b19/XXXL', title: 'Радость жизни' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16431464/2a0000019a96c8661483d7584bed9591f7ad/M_height', title: 'Свободны и быстры как ветер' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16136444/2a0000019a6ddcd7511baa0efa3cad232dec/XXXL', title: 'Город Вятка' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/19579876/2a0000019c428b86eed5a1bca14d117acf2e/M_height', title: 'Каток у Моста' }
+                    ]
+                },
+                'omsk': {
+                    title: 'Граффити в Омске',
+                    description: 'Омск — город, где уличное искусство развивается при поддержке Министерства культуры в рамках ежегодного фестиваля «Омский Стрит-Арт», в ходе которого муралы создаются не только в областном центре, но и в районах, а их тематика часто связана с историей края и значимыми личностями, такими как народный художник Алексей Либеров.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/14014620/2a00000192060dba7786df3df39269aea1cb/M_height',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/14014620/2a00000192060dba7786df3df39269aea1cb/M_height', title: 'Влюбленные' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/14800460/2a000001954f45ae5e96505b46075548a779/M_height', title: 'Женщина Космонавт' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/2039785/2a00000171ea10479a5399db18564b55ed81/M_height', title: 'Богатырь Манас' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16166099/2a0000019b12d9c81697f068095a11c48db1/M_height', title: 'Радость' }
+                    ]
+                },
+                'chelyabinsk': {
+                    title: 'Граффити в Челябинске',
+                    description: 'Челябинск — город, где стрит-арт вышел за рамки нелегальных рисунков и стал украшением городской среды: здесь появляются инклюзивные граффити, проекты при поддержке администрации (например, граффити-раскраска «Привет, сосед») и работы, попадающие в переходе на площадь Революции и на остановках.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/7883089/2a000001904e99a543588f7cc0aea4de6b6c/M_height',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/15452616/2a00000198e1f40710df424a89f998550502/M_height', title: 'Кошка в окошке' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/7883089/2a000001904e99a543588f7cc0aea4de6b6c/M_height', title: 'Команда' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16415892/2a0000019b4bfd03900a7a02027b9ac8ea90/M_height', title: 'Девушка с птицей' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/15650736/2a00000198e1fd4b8c3fbfb3cc9aee186225/M_height', title: 'Книжная полка' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16270073/2a00000198c2a3cd01d0af6ece3fac5232a0/M_height', title: '30 лет антимонопольному регулированию' }
+                    ]
+                },
+                'ufa': {
+                    title: 'Граффити в Уфе',
+                    description: 'Уфа — город, где с 2022 года реализуется масштабный Фестиваль уличного искусства, подаривший столице Башкортостана 90 муралов, которые становятся новыми визуальными символами: здесь есть работы, вошедшие в мировой топ-100 по версии Street Art Cities и получившие международные награды в Милане.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/9714262/2a0000018a221b875f1b03d6d2eb11fd5f0f/M_height',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/9822373/2a0000019236bfd1289d25662257ab298d2f/M_height', title: 'Арка Шевчука' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/15389647/2a0000019a062b284945000cebd69f0ae422/M_height', title: 'Земфира' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/9849468/2a0000018a221b82a896f4afb28784dff739/M_height', title: 'Купание красных коней' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/4961567/2a000001903fd05a4e589fceac1e12079757/M_height', title: 'Маленький человек и большое облако' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/13897576/2a000001923c0342f6952ce871ef8a4a77ef/M_height', title: 'Маршалу Георгию Константиновичу Жукову' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/11383855/2a0000018c39838d75070c683cd140774827/M_height', title: 'Птицы' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/11302718/2a000001903fcfda98b4cf06b1d849988c17/M_height', title: 'Батыр' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/927916/2a00000187e2dd4a7e920f9ee09fc49f8bd5/M_height', title: 'Радиопульс' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/7883089/2a0000018f8f4f63f9cb0c4727674faf9e9d/M_height', title: 'Герой Советского Союза Н.В.Ковшова' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/11522875/2a0000018e36bd5a912f2c999d7b04887ba5/M_height', title: 'Семь девушек' }
+                    ]
+                },
+                'tomsk': {
+                    title: 'Граффити в Томске',
+                    description: 'Томск — город, где уличная культура активно развивается и привлекает молодежь через граффити, скейтбординг и перформансы, а Томский областной художественный музей поддерживает мастер-классы «Голос улиц», помогая горожанам заниматься искусством в безопасном и контролируемом формате.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/14844975/2a00000196905e7af5a9a50defb07ed9c465/M_height',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/14844975/2a00000196905e7af5a9a50defb07ed9c465/M_height', title: 'Пляс влюблённых рек' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/2134557/2a00000185da0b5f436940f08647e3f7cc60/M_height', title: 'Пепеляев' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/1666174/2a00000171ef13c388d66a70ef01155d56bc/M_height', title: 'Легенда о Томи' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/2838749/2a00000171ef17caae80b967432691c0a142/M_height', title: 'Свет Науки' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/2809978/2a00000171ef15be09e618ecbab0b0a405a9/M_height', title: 'Сибирское джунгли' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/13951679/2a000001963cd2941baa2614433e7ec3df6a/M_height', title: 'Аисты' }
+                    ]
+                },
+                'orenburg': {
+                    title: 'Граффити в Оренбурге',
+                    description: 'Оренбург — город, чей художник Дмитрий Сумбаев (DIMASW) одержал победу во всероссийском конкурсе граффити «Битва городов: стрит-арт 2121», набрав наибольшее количество голосов и получив денежный приз, а более 55 000 оренбуржцев поддержали его в народном голосовании.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/4335885/2a00000190b9d1434d93c031539f592ce13b/M_height',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/10845257/2a0000018b1ebfb6646d09d6b0eff25de490/M_height', title: 'Граффити Кирилл Толмацкий' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/941278/2a0000018715660ca976b3584f2d925b3a4c/M_height', title: 'Граффити История Оренбургской области' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/13805978/2a0000019363f4ae672bc1d06757fff7c241/M_height', title: 'Три желания' }
+                    ]
+                },
+                'tula': {
+                    title: 'Граффити в Туле',
+                    description: 'Тула — город, где уличное искусство стало способом диалога между жителями, властью и художниками: на дискуссиях в кластере «Октава» обсуждают роль стрит-арта в общественных изменениях, а художники открывают граффити-школы и отмечают, что туляки всегда позитивно встречают новые работы, приносят угощения и тортики.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/5554141/2a00000183f52ba36ad73123aad375b58a7c/M_height',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/6406681/2a000001808f70927929f6e19611293e1db1/M_height', title: 'Медведь' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/5554141/2a00000183f52ba36ad73123aad375b58a7c/M_height', title: 'Семья' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/10812438/2a0000018c3b7859234569612958f398c2e1/M_height', title: 'Лев Толстой' }
+                    ]
+                },
+                'tver': {
+                    title: 'Граффити в Твери',
+                    description: 'Тверь — город с богатой историей граффити: именно здесь в 1992 году открылся первый в России магазин с баллончиками для граффити, а художник Виктор Лебедев (Витя Джокер) создал известные портреты Солженицына, Цоя и Децла, перейдя от нелегального творчества к официально согласованным муралам.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/14920258/2a000001984862b3c73f4ebcc34f481b3c08/M_height',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16394283/2a000001984862bcd511ce788737e6aadc96/M_height', title: 'Уличная Бэтвыставка' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16136925/2a000001987454e022375005d0b4f37e32df/M_height', title: 'Тверь-городок' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/13072111/2a0000018f10048bb937b8cfca8ce03ef85e/M_height', title: 'Бро, твори добро!' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/11940760/2a0000018ee44f51857340c5c6946b29108f/M_height', title: 'Виктор Цой' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/13457355/2a0000018f788a4f72068573fa10f7ccdec2/M_height', title: 'Жить не по лжи!' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16396695/2a00000198e0777c6220797e080235f57439/M_height', title: 'Собака' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16011054/2a00000199708dd5bd3e2033b1daaa587304/M_height', title: 'Тигр' }
+                    ]
+                },
+                'minsk': {
+                    title: 'Граффити в Минске',
+                    description: 'Минск — город, где муралы стали неотъемлемой частью городского пейзажа: столица Беларуси украшается монументальными граффити на подстанциях, которые проходят обязательное согласование с Минским городским художественно-экспертным советом, а жители с интересом и восторгом воспринимают современный стрит-арт.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/9749133/2a000001890ddb3c6de719f05f856ae2da7b/M_height',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/16569030/2a00000199237ff93e11d2e37147cdf9dcc0/M_height', title: 'Девушка в вышиванке' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/7636462/2a000001868e37bfc1261c297c407c5ee413/M_height', title: 'Мартовский кот' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/10231026/2a0000018edc561d6986fec0be9b166a64f0/M_height', title: 'Мурал Ярила' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/14372341/2a0000019590bbaafcb4733f3a89739b59b5/M_height', title: 'Цветы' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/6363798/2a00000181f988c06d2e76a6056c5beefc3f/M_height', title: 'Мозаика Партизаны Беларуси' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/4255939/2a000001819ecb5086afc9857101b5859d54/M_height', title: 'Мурал Everywhere i go' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/6314780/2a00000188d79f6d0b195976ca7d8210c27f/M_height', title: 'Космическое путешествие' }
+                    ]
+                },
+                'astana': {
+                    title: 'Граффити в Астане',
+                    description: 'Астана — город, где уличное искусство активно развивается при официальной поддержке и становится неотъемлемой частью городской культуры: здесь проводят легальные фестивали граффити, создают тематические муралы на национальную тематику и специально оборудуют пространства для свободного творчества художников.',
+                    image: 'https://avatars.mds.yandex.net/get-altay/11492238/2a0000018e6c2f64a98408ab3971cf8a0786/M_height',
+                    graffitis: [
+                        { image: 'https://avatars.mds.yandex.net/get-altay/1899727/2a0000016d634ab8cb497d0a35a5ab8847d7/M_height', title: 'Сакен Сейфуллин' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/11522875/2a0000018e6c2e11044856448ade54169240/M_height', title: 'Коллаж на тему природы' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/11732311/2a0000018e6c30df65dfad4b84549c36c7a9/M_height', title: 'Жить с деревом' },
+                        { image: 'https://avatars.mds.yandex.net/get-altay/10231026/2a0000018faaf8aff5516c917de25792da1e/XXXL', title: 'Darkhan Juzz' }
+                    ]
+                }
+            };
+            
+            galleryItems.forEach(item => {
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', function() {
+                    const cityId = this.getAttribute('data-city');
+                    const data = cityData[cityId];
+                    if (!data) return;
+                    
+                    document.getElementById('city-modal-title').textContent = data.title;
+                    document.getElementById('city-modal-description').textContent = data.description;
+                    document.getElementById('city-modal-image').src = data.image;
+                    document.getElementById('city-modal-image').alt = data.title;
+                    
+                    const graffitisContainer = document.getElementById('city-modal-graffitis');
+                    graffitisContainer.innerHTML = '<h3><i class="fas fa-paint-roller"></i> Известные граффити города:</h3><div class="city-graffiti-grid"></div>';
+                    const gridContainer = graffitisContainer.querySelector('.city-graffiti-grid');
+                    
+                    data.graffitis.forEach(graffiti => {
+                        const div = document.createElement('div');
+                        div.className = 'city-graffiti-item';
+                        div.innerHTML = `<img src="${graffiti.image}" alt="${graffiti.title}"><div class="city-graffiti-caption">${graffiti.title}</div>`;
+                        gridContainer.appendChild(div);
+                    });
+                    
+                    cityModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    cityModal.scrollTop = 0;
+                });
+            });
+            
+            if (cityCloseModal) {
+                cityCloseModal.addEventListener('click', function() {
+                    cityModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            }
+            
+            cityModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    cityModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && cityModal.style.display === 'block') {
+                    cityModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // шапка прячется при скролле
+        function initScrollEffects() {
+            const header = document.getElementById('mainHeader');
+            if (!header) return;
+            
+            let lastScrollTop = 0;
+            const scrollThreshold = 50;
+            
+            function update() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                    header.classList.add('hidden');
+                } else {
+                    header.classList.remove('hidden');
+                }
+                
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(17, 17, 17, 0.98)';
+                    header.style.padding = '10px 0';
+                } else {
+                    header.style.backgroundColor = 'rgba(17, 17, 17, 0.95)';
+                    header.style.padding = '15px 0';
+                }
+                
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }
+            
+            update();
+            window.addEventListener('scroll', update);
+        }
+
+        // карточки появляются когда видно
+        function initScrollAnimations() {
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.feature-card, .gallery-item, .about-image-item, .route-card, .stat-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+            
+            window.addEventListener('load', () => {
+                const heroTitle = document.querySelector('.hero h1');
+                heroTitle.style.animation = 'fadeInDown 1s ease';
+            });
+        }
+
+        // список в Кирове тоже можно тыкать
+        function initKirovList() {
+            const listItems = document.querySelectorAll('.route-list li');
+            const routeCards = document.querySelectorAll('.route-card');
+            
+            listItems.forEach(item => {
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetCard = document.querySelector(`.route-card[data-id="${targetId}"]`);
+                    if (targetCard) {
+                        this.style.animation = 'clickPulse 0.3s ease';
+                        setTimeout(() => { this.style.animation = ''; }, 300);
+                        targetCard.click();
+                        setTimeout(() => {
+                            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100);
+                    }
+                });
+            });
+        }
+
+        // история появляется по кусочкам
+        function initTimelineItemsAnimation() {
+            const items = document.querySelectorAll('.timeline-item');
+            if (items.length === 0) return;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    } else {
+                        entry.target.classList.remove('animate');
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            items.forEach(item => observer.observe(item));
+        }
+
+        // если опять увидели статистику - циферки бегут заново
+        function initStatsReplay() {
+            const statsSection = document.getElementById('stats');
+            if (!statsSection) return;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statNumbers = document.querySelectorAll('.stat-number');
+                        statNumbers.forEach(stat => {
+                            const target = parseFloat(stat.getAttribute('data-target'));
+                            if (!isNaN(target)) {
+                                stat.textContent = '0';
+                                animateCounter(stat, target);
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            observer.observe(statsSection);
+        }
+
+        // волна при клике на картинку в галерее
+        function initRippleEffect() {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
